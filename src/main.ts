@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  process.env.tz = '-03:00' //fuso brasil
+  process.env.TZ = '-03:00'; //fuso-horario brasilileiro
 
   app.useGlobalPipes(new ValidationPipe()); //utilizado para validar os objetos, registra pipes globais, todas as requisições serão validadas através dessa biblioteca
 

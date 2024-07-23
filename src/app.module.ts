@@ -16,6 +16,7 @@ import { PostagemModule } from './postagem/postagem.module';
       database: 'db_blogpessoal',
       entities: [Postagem], //tabelas
       synchronize: true,
+      logging: true,
     }),
     PostagemModule,
   ],
