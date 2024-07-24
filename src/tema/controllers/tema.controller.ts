@@ -20,7 +20,7 @@ export class TemaController {
         return this.temaService.findByID(id);
     }
 
-    @Get('/:descricao')
+    @Get('/descricao/:descricao')
     @HttpCode(HttpStatus.OK) //http status 200
     findByDescricao(@Param('descricao') descricao: string): Promise<Tema[]> {
         return this.temaService.findByDescricao(descricao);
