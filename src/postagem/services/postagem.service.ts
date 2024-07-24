@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { DeleteResult, ILike, Repository } from "typeorm";
 import { Postagem } from "../entities/postagem.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+import { TemaService } from "../../tema/services/tema.service";
 
 
 @Injectable()
@@ -9,7 +10,8 @@ export class PostagemService{ //cria os metodos do crud
 
     constructor(
         @InjectRepository(Postagem)                       //injesct: pega os atributos e instancia eles //injecao de depdencia: transferencia de responsabilidade
-        private postagemRepository: Repository<Postagem> //repository tem os metodos para manipular os dados de tb_postagens
+        private postagemRepository: Repository<Postagem>,
+        private temaService: TemaService                                                      //repository tem os metodos para manipular os dados de tb_postagens
                                                           //indica qual objeto sera usado por repository privado pois funcionara apensas em service
     ){}
      
@@ -19,7 +21,11 @@ export class PostagemService{ //cria os metodos do crud
 
     async findAll(): Promise<Postagem[]>{ //prometo que vou trazer esses dados, mas não cumpre sempre, depende de fatores
         //equivalente a select * from tb_postagens;
-        return await this.postagemRepository.find();
+        return await this.postagemRepository.find({
+            relations: {
+                tema: true
+            }
+        });
     }
 
     async findByID(id: number): Promise<Postagem>{ //voltará apenas um objeto, por isso não usamos array
@@ -27,6 +33,9 @@ export class PostagemService{ //cria os metodos do crud
         let buscaPostagem = await this.postagemRepository.findOne({
             where: {
                 id                
+            },
+            relations: {
+                tema: true
             }
         })
         if (!buscaPostagem)
@@ -39,18 +48,22 @@ export class PostagemService{ //cria os metodos do crud
 
         return await this.postagemRepository.find({
             where: {
-                titulo: ILike(`%${titulo}%`) //ilike é insesitivo: tanto faz o maiúsculo ou minúsculo
+                titulo: ILike(`%${titulo}%`) //ilike é insensitivo: tanto faz o maiúsculo ou minúsculo
+            },
+            relations: {
+                tema: true
             }
-        })
-        
-        
+        })      
     }
 
     async create(postagem: Postagem): Promise<Postagem>{
+        //se o usuario indicou o tema
+        if (postagem.tema) {
+            let tema = await this.temaService.findByID(postagem.tema.id)
+        }
+        //se o usuário não indicou o tema
         return await this.postagemRepository.save(postagem);
     }
-
-
 
     async update(postagem: Postagem): Promise<Postagem> {  //atualiza o objeto todo 
 
@@ -58,7 +71,10 @@ export class PostagemService{ //cria os metodos do crud
 
         if (!buscaPostagem || !postagem.id)
             throw new HttpException('A Postagem não foi encontrada!', HttpStatus.NOT_FOUND)
+        if (postagem.tema) {
 
+            await this.temaService.findByID(postagem.tema.id)
+        }
         return await this.postagemRepository.save(postagem);
     }
 
@@ -68,10 +84,9 @@ export class PostagemService{ //cria os metodos do crud
 
         if (!buscaPostagem)
             throw new HttpException('A Postagem não foi encontrada!', HttpStatus.NOT_FOUND); //exceção para a execução
-
+            
         return await this.postagemRepository.delete(id);
     }
-
 
 
 }
