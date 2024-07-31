@@ -23,7 +23,8 @@ export class PostagemService{ //cria os metodos do crud
         //equivalente a select * from tb_postagens;
         return await this.postagemRepository.find({
             relations: {
-                tema: true
+                tema: true,
+                usuario:true,
             }
         });
     }
@@ -35,7 +36,8 @@ export class PostagemService{ //cria os metodos do crud
                 id                
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true,
             }
         })
         if (!buscaPostagem)
@@ -51,7 +53,8 @@ export class PostagemService{ //cria os metodos do crud
                 titulo: ILike(`%${titulo}%`) //ilike é insensitivo: tanto faz o maiúsculo ou minúsculo
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true,
             }
         })      
     }
