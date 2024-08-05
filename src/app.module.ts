@@ -9,27 +9,22 @@ import { TemaModule } from './tema/tema.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { Usuario } from './usuario/entities/usuario.entity';
-import { UsuarioService } from './usuario/services/services.usuario';
+import { UsuarioService } from './usuario/services/usuarios.service';
+import { ConfigModule } from '@nestjs/config';
+import { ProdService } from './data/services/prod.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_blogpessoal',
-      entities: [Postagem, Tema, Usuario], //tabelas
-      synchronize: true,
-      logging: true,
-    }),
+  imports:[ ConfigModule.forRoot(),
+  TypeOrmModule.forRootAsync({
+    useClass: ProdService,
+    imports: [ConfigModule],
+  }),
     PostagemModule,
     TemaModule,
     AuthModule,
     UsuarioModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule { }

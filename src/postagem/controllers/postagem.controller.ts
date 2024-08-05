@@ -2,9 +2,12 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { Postagem } from "../entities/postagem.entity";
 import { PostagemService } from "../services/postagem.service";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Postagem')
 @UseGuards(JwtAuthGuard)
 @Controller("/postagens")
+@ApiBearerAuth()
 export class PostagemController{
     
     constructor(private readonly postagemService: PostagemService) { } //readonly só chama
@@ -28,7 +31,7 @@ export class PostagemController{
         return this.postagemService.findByTitulo(titulo);
     }
 
-    @Post()
+    @Post('/cadastrar')
     @HttpCode(HttpStatus.CREATED) //http status 201 que é usado para criar alguma coisa
     update(@Body() postagem: Postagem): Promise<Postagem>{
         return this.postagemService.create(postagem);

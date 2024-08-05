@@ -2,9 +2,12 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { TemaService } from "../services/tema.service";
 import { Tema } from "../entities/tema.entity";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
-//@UseGuards(JwtAuthGuard)
+@ApiTags('Tema')
+@UseGuards(JwtAuthGuard)
 @Controller("/temas")
+@ApiBearerAuth()
 export class TemaController {
 
     constructor(private readonly temaService: TemaService) { } 
@@ -27,7 +30,7 @@ export class TemaController {
         return this.temaService.findByDescricao(descricao);
     }
 
-    @Post()
+    @Post('/cadastrar')
     @HttpCode(HttpStatus.CREATED) //http status 201 que é usado para criar alguma coisa
     update(@Body() tema: Tema): Promise<Tema> {
         return this.temaService.create(tema);
