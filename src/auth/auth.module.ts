@@ -7,7 +7,7 @@ import { jwtConstants } from "./constants/constants";
 import { AuthService } from "./services/auth.service";
 import { LocalStrategy } from "./strategy/local.strategy";
 import { JwtStrategy } from "./strategy/jwt.strategy";
-import { AuthController } from "./constrollers/auth.controller";
+import { AuthController } from "./controllers/auth.controller";
 
 
 @Module({
@@ -16,7 +16,7 @@ import { AuthController } from "./constrollers/auth.controller";
         PassportModule,
         JwtModule.register({
             secret: jwtConstants.secret,
-            signOptions: {expiresIn: '1h'},
+            signOptions: { expiresIn: '1h' },
         })
     ],
     providers: [Bcrypt, AuthService, LocalStrategy, JwtStrategy],
@@ -24,4 +24,4 @@ import { AuthController } from "./constrollers/auth.controller";
     exports: [Bcrypt],
 
 })
-export class AuthModule{}
+export class AuthModule { }
