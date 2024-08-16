@@ -4,7 +4,7 @@ Este projeto foi desenvolvido durante o Bloco 2 do Bootcamp da Generation Brasil
 
 ## Descrição
 
-Este é um projeto de backend de um blog pessoal, implementado com TypeScript e NestJS, e integrando com um banco de dados MySQL. Para segurança e autenticação, utilizamos Passport Local Strategy, JWT Strategy e Bcrypt. Os testes dos CRUDs dos recursos foram feitos no Insomnia, testes unitários com Jest, documentação com Swagger e o deploy foi realizado no Render.
+Este é um projeto de backend de um blog pessoal, implementado com TypeScript e NestJS, e integrando com um banco de dados MySQL. Para segurança e autenticação, utilizamos Passport Local Strategy, JWT Strategy e Bcrypt. Os testes dos CRUDs dos recursos foram feitos no Insomnia, testes E2E com Jest, documentação com Swagger e o deploy foi realizado no Render.
 
 ### Tecnologias Utilizadas
 
