@@ -16,7 +16,7 @@ export class DevService implements TypeOrmOptionsFactory {
             password: 'root',
             database: 'db_blogpessoal',
             entities: [Postagem, Tema, Usuario],
-            synchronize: true,
+            synchronize: false,
         };
     }
 }
