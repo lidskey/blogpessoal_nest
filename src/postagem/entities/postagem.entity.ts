@@ -8,39 +8,39 @@ import { ApiProperty } from "@nestjs/swagger";
 @Entity({ name: "tb_postagens" }) //entity esta passando propriedade/criação da tabela
 export class Postagem {
 
-    @ApiProperty()  
+    @ApiProperty()
     @PrimaryGeneratedColumn() //define pk autoincremental 
     id: number;
 
-    @ApiProperty()  
+    @ApiProperty()
     @Transform(({ value }: TransformFnParams) => value?.trim()) //função que bloqueia os espaços em branco
     @IsNotEmpty() //titulo sera obrigatorio
     @Column({ length: 100, nullable: false }) //definir o tamanho e não aceitar valor nulo
     titulo: string;
 
-    @ApiProperty()  
+    @ApiProperty()
     @Transform(({ value }: TransformFnParams) => value?.trim())
     @IsNotEmpty() //texto sera obrigatorio
     @Column({ length: 1000, nullable: false })
     texto: string;
 
-    @ApiProperty()  
+    @ApiProperty()
     @UpdateDateColumn() //a data e a hora serão preenchidas automaticamente
     data: Date;
 
     // Muitos para um, ou seja, muitas postagens possuem um tema
-    @ApiProperty()  
+    @ApiProperty({ type: () => Usuario })
     @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
         onDelete: "CASCADE"
-})
+    })
     usuario: Usuario;
-    
-    @ApiProperty()  
+
+    @ApiProperty({ type: () => Tema })
     @ManyToOne(() => Postagem, (postagem) => postagem.tema, {
         onDelete: "CASCADE"
-        
+
     })
     tema: Tema;
-    
-    
+
+
 }
