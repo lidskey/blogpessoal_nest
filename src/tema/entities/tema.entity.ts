@@ -18,8 +18,9 @@ export class Tema{
     @ApiProperty()
     descricao: string;
 
-    @ApiProperty()
-    @OneToMany(() => Postagem, (postagem)=> postagem.tema) //a estrutura da arrow function faz a associação para a relação bidirecional
+    
+    @OneToMany(() => Postagem, (postagem) => postagem.tema)
+    @ApiProperty()//a estrutura da arrow function faz a associação para a relação bidirecional
     postagem: Postagem[]  //varias postagens serão classificadas pelo mesmo tema, por isso o array
 
 }

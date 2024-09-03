@@ -60,16 +60,14 @@ export class PostagemService { //cria os metodos do crud
     }
 
     async create(postagem: Postagem): Promise<Postagem> {
-        //se o usuario indicou o tema
+
         if (postagem.tema) {
-                
-            let tema = await this.temaService.findByID(postagem.tema.id)
-        
-            if (!tema)
-                throw new HttpException('Tema não encontrado!', HttpStatus.NOT_FOUND)
-            //se o usuário não indicou o tema
+
+            await this.temaService.findByID(postagem.tema.id)
+
             return await this.postagemRepository.save(postagem);
         }
+
         return await this.postagemRepository.save(postagem);
     }
 

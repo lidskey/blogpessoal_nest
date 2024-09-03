@@ -30,7 +30,7 @@ export class TemaController {
         return this.temaService.findByDescricao(descricao);
     }
 
-    @Post('/cadastrar')
+    @Post()
     @HttpCode(HttpStatus.CREATED) //http status 201 que é usado para criar alguma coisa
     update(@Body() tema: Tema): Promise<Tema> {
         return this.temaService.create(tema);

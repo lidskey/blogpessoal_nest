@@ -25,7 +25,8 @@ export class TemaService { //cria os metodos do crud
 
     async findByID(id: number): Promise<Tema> { //voltará apenas um objeto, por isso não usamos array
 
-        let buscaTema = await this.temaRepository.findOne({
+        let tema = await this.temaRepository.findOne({
+
             where: {
                 id
             },
@@ -33,10 +34,10 @@ export class TemaService { //cria os metodos do crud
                 postagem: true
             }
         })
-        if (!buscaTema)
+        if (!tema)
             throw new HttpException('O tema não foi encontrado!', HttpStatus.NOT_FOUND); //exceção para a execução
 
-        return buscaTema;
+        return tema;
     }
 
     async findByDescricao(descricao:string): Promise<Tema[]> {
@@ -53,8 +54,8 @@ export class TemaService { //cria os metodos do crud
     }
 
 
-    async create(temaRepository): Promise<Tema> {
-        return await this.temaRepository.save(temaRepository);
+    async create(Tema: Tema): Promise<Tema> {
+        return await this.temaRepository.save(Tema);
     }
 
 

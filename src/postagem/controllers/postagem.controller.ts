@@ -4,9 +4,10 @@ import { PostagemService } from "../services/postagem.service";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
-@ApiTags('Postagem')
+
 @UseGuards(JwtAuthGuard)
 @Controller("/postagens")
+@ApiTags('Postagem')
 @ApiBearerAuth()
 export class PostagemController{
     
@@ -31,7 +32,7 @@ export class PostagemController{
         return this.postagemService.findByTitulo(titulo);
     }
 
-    @Post('/cadastrar')
+    @Post()
     @HttpCode(HttpStatus.CREATED) //http status 201 que é usado para criar alguma coisa
     update(@Body() postagem: Postagem): Promise<Postagem>{
         return this.postagemService.create(postagem);
