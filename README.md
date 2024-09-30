@@ -1,4 +1,4 @@
-# Projeto Blog Pessoal
+# Projeto Blog Pessoal - Backend
 
 Este projeto foi desenvolvido durante o Bloco 2 do Bootcamp da Generation Brasil.
 
