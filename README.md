@@ -44,5 +44,7 @@ Este é um projeto de backend de um blog pessoal, implementado com TypeScript e 
 
 <img width="881" alt="image" src="https://github.com/user-attachments/assets/65144033-26dc-4fc0-8436-3b082b338e3a">
 
+## Confira o Frontend: https://github.com/lidskey/blogpessoal_react
+
 
 
